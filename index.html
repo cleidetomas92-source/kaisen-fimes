@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaisen Filmes | Cinema em casa</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-container">
+      <div class="logo"><i class="fas fa-film"></i> Kaisen Filmes</div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+      <nav id="mainNav">
+        <ul>
+          <li><a href="#" class="active">Início</a></li>
+          <li><a href="#">Filmes</a></li>
+          <li><a href="#">Séries</a></li>
+          <li><a href="#">Categorias</a></li>
+          <li><a href="#">Sobre</a></li>
+        </ul>
+      </nav>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Pesquisar filmes...">
+        <button id="searchBtn"><i class="fas fa-search"></i> <span>Buscar</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <section class="hero">
+    <div class="hero-banner">
+      <h1>Descubra o melhor do cinema</h1>
+      <p>Filmes aclamados, clássicos e novidades para todos os gostos.</p>
+      <button class="hero-btn" id="heroExploreBtn"><i class="fas fa-play"></i> Explorar agora</button>
+    </div>
+  </section>
+
+  <div class="section-title"><i class="fas fa-star"></i> Filmes em destaque</div>
+
+  <!-- FILTROS DE CATEGORIA (Agora com gêneros reais do TMDB) -->
+  <div class="categories-filter" id="categoriesFilter">
+    <button class="cat-btn active" data-category="todos">Todos</button>
+    <button class="cat-btn" data-category="28">Ação</button>
+    <button class="cat-btn" data-category="35">Comédia</button>
+    <button class="cat-btn" data-category="18">Drama</button>
+    <button class="cat-btn" data-category="27">Terror</button>
+    <button class="cat-btn" data-category="878">Ficção científica</button>
+    <button class="cat-btn" data-category="16">Animação</button>
+    <button class="cat-btn" data-category="10749">Romance</button>
+    <button class="cat-btn" data-category="12">Aventura</button>
+  </div>
+
+  <!-- GRELHA DE FILMES (Preenchida via JS) -->
+  <div class="movies-grid" id="moviesGrid">
+    <div class="no-results">Carregando filmes reais...</div>
+  </div>
+
+  <!-- MODAL DE DETALHES -->
+  <div class="details-modal" id="detailsModal">
+    <div class="details-content" id="detailsContent"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 Kaisen Filmes — Dados fornecidos por TMDB. Este produto usa a API do TMDB mas não é endossado ou certificado pelo TMDB.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

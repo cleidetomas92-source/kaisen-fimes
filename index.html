@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kaisen Filmes - Filmes e Séries</title>
+
+  <meta name="description" content="Kaisen Filmes - catálogo de filmes e séries, com informações, categorias e detalhes.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #090b10;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* CABEÇALHO */
+    header {
+      background: #10131a;
+      border-bottom: 1px solid #252936;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #e50914;
+    }
+
+    nav {
+      display: flex;
+      gap: 22px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #e50914;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px;
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    .hero-box {
+      min-height: 390px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      background:
+        linear-gradient(to top, #050608 5%, transparent 75%),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=80")
+        center/cover;
+    }
+
+    .hero-content {
+      padding: 40px;
+      max-width: 650px;
+    }
+
+    .hero-content small {
+      color: #e50914;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .hero-content h1 {
+      font-size: 44px;
+      margin: 12px 0;
+    }
+
+    .hero-content p {
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: #e50914;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #b20710;
+    }
+
+    .btn-secondary {
+      background: #252936;
+      color: white;
+      margin-left: 8px;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      margin: 25px 0 20px;
+    }
+
+    /* PESQUISA */
+    .search-area {
+      margin: 15px 0 30px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-area input {
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 10px;
+      border: 1px solid #292d38;
+      background: #11141b;
+      color: white;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .search-area input:focus {
+      border-color: #e50914;
+    }
+
+    /* CATEGORIAS */
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .category {
+      flex-shrink: 0;
+      border: 1px solid #303440;
+      background: #151820;
+      color: #ddd;
+      padding: 10px 17px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .category:hover,
+    .category.active {
+      background: #e50914;
+      color: white;
+      border-color: #e50914;
+    }
+
+    /* FILMES */
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .movie-card {
+      background: #12151c;
+      border: 1px solid #242833;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-5px);
+      border-color: #e50914;
+    }
+
+    .movie-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .movie-info {
+      padding: 15px;
+    }
+
+    .movie-info h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .movie-meta {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 13px;
+    }
+
+    .movie-description {
+      color: #bbb;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .details-btn {
+      width: 100%;
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .details-btn:hover {
+      background: #b20710;
+    }
+
+    /* SEM RESULTADOS */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 50px 20px;
+      color: #aaa;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-box {
+      max-width: 850px;
+      margin: 40px auto;
+      background: #151820;
+      border: 1px solid #303440;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 330px;
+      object-fit: cover;
+    }
+
+    .modal-content {
+      padding: 30px;
+    }
+
+    .modal-content h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: #ccc;
+      line-height: 1.7;
+      margin: 15px 0;
+    }
+
+    .close {
+      position: absolute;
+      right: 18px;
+      top: 15px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* RODAPÉ */
+    footer {
+      margin-top: 70px;
+      background: #10131a;
+      border-top: 1px solid #252936;
+      padding: 35px 20px;
+      text-align: center;
+      color: #888;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .movies-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero-content h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .header-content {
+        flex-direction: column;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .hero {
+        padding: 25px 15px;
+      }
+
+      .hero-box {
+        min-height: 430px;
+      }
+
+      .hero-content {
+        padding: 25px;
+      }
+
+      .hero-content h1 {
+        font-size: 30px;
+      }
+
+      .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .movie-image {
+        height: 230px;
+      }
+
+      .movie-info {
+        padding: 12px;
+      }
+
+      .movie-info h3 {
+        font-size: 16px;
+      }
+
+      .movie-description {
+        display: none;
+      }
+
+      .modal-image {
+        height: 230px;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .movies-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .movie-image {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-content">
+
+      <div class="logo">
+        Kaisen <span>Filmes</span>
+      </div>
+
+      <nav>
+        <a href="#inicio">Início</a>
+        <a href="#filmes">Filmes</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#sobre">Sobre</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- DESTAQUE -->
+  <section class="hero" id="inicio">
+    <div class="hero-box">
+
+      <div class="hero-content">
+
+        <small>Bem-vindo ao Kaisen Filmes</small>
+
+        <h1>O teu catálogo de filmes</h1>
+
+        <p>
+          Descobre filmes, consulta informações, explora categorias
+          e encontra novos títulos para assistir.
+        </p>
+
+        <a href="#filmes" class="btn btn-primary">
+          Explorar filmes
+        </a>
+
+        <a href="#categorias" class="btn btn-secondary">
+          Categorias
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <main class="container">
+
+    <!-- PESQUISA -->
+    <div class="search-area">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔎 Procurar um filme..."
+        onkeyup="searchMovies()"
+      >
+    </div>
+
+
+    <!-- CATEGORIAS -->
+    <section id="categorias">
+
+      <h2 class="section-title">
+        Categorias
+      </h2>
+
+      <div class="categories">
+
+        <button class="category active" onclick="filterCategory('Todos', this)">
+          Todos
+        </button>
+
+        <button class="category" onclick="filterCategory('Ação', this)">
+          Ação
+        </button>
+
+        <button class="category" onclick="filterCategory('Comédia', this)">
+          Comédia
+        </button>
+
+        <button class="category" onclick="filterCategory('Drama', this)">
+          Drama
+        </button>
+
+        <button class="category" onclick="filterCategory('Terror', this)">
+          Terror
+        </button>
+
+        <button class="category" onclick="filterCategory('Ficção', this)">
+          Ficção científica
+        </button>
+
+        <button class="category" onclick="filterCategory('Animação', this)">
+          Animação
+        </button>
+
+        <button class="category" onclick="filterCategory('Romance', this)">
+          Romance
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FILMES -->
+    <section id="filmes">
+
+      <h2 class="section-title">
+        Filmes em destaque
+      </h2>
+
+      <div class="movies-grid" id="moviesGrid">
+
+
+        <!-- FILME 1 -->
+        <article
+          class="movie-card"
+          data-title="A Última Missão"
+          data-category="Ação"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=80"
+            alt="A Última Missão"
+          >
+
+          <div class="movie-info">
+
+            <h3>A Última Missão</h3>
+
+            <div class="movie-meta">
+              2025 • Ação
+            </div>
+
+            <p class="movie-description">
+              Um agente recebe uma missão perigosa que pode mudar o seu destino.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'A Última Missão',
+                '2025',
+                'Ação',
+                'Um agente recebe uma missão perigosa que pode mudar o seu destino.',
+                'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 2 -->
+        <article
+          class="movie-card"
+          data-title="Horizonte Perdido"
+          data-category="Aventura"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80"
+            alt="Horizonte Perdido"
+          >
+
+          <div class="movie-info">
+
+            <h3>Horizonte Perdido</h3>
+
+            <div class="movie-meta">
+              2024 • Aventura
+            </div>
+
+            <p class="movie-description">
+              Uma viagem inesperada leva um grupo de amigos a uma descoberta incrível.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'Horizonte Perdido',
+                '2024',
+                'Aventura',
+                'Uma viagem inesperada leva um grupo de amigos a uma descoberta incrível.',
+                'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 3 -->
+        <article
+          class="movie-card"
+          data-title="Noite Escura"
+          data-category="Terror"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=700&q=80"
+            alt="Noite Escura"
+          >
+
+          <div class="movie-info">
+
+            <h3>Noite Escura</h3>
+
+            <div class="movie-meta">
+              2025 • Terror
+            </div>
+
+            <p class="movie-description">
+              Uma noite aparentemente normal transforma-se numa experiência assustadora.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'Noite Escura',
+                '2025',
+                'Terror',
+                'Uma noite aparentemente normal transforma-se numa experiência assustadora.',
+                'https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 4 -->
+        <article
+          class="movie-card"
+          data-title="Amor em Paris"
+          data-category="Romance"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=700&q=80"
+            alt="Amor em Paris"
+          >
+
+          <div class="movie-info">
+
+            <h3>Amor em Paris</h3>
+
+            <div class="movie-meta">
+              2024 • Romance
+            </div>
+
+            <p class="movie-description">
+              Dois desconhecidos encontram-se numa viagem e descobrem uma nova história.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'Amor em Paris',
+                '2024',
+                'Romance',
+                'Dois desconhecidos encontram-se numa viagem e descobrem uma nova história.',
+                'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 5 -->
+        <article
+          class="movie-card"
+          data-title="Código do Futuro"
+          data-category="Ficção"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80"
+            alt="Código do Futuro"
+          >
+
+          <div class="movie-info">
+
+            <h3>Código do Futuro</h3>
+
+            <div class="movie-meta">
+              2025 • Ficção científica
+            </div>
+
+            <p class="movie-description">
+              Uma descoberta tecnológica coloca o futuro da humanidade em risco.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'Código do Futuro',
+                '2025',
+                'Ficção científica',
+                'Uma descoberta tecnológica coloca o futuro da humanidade em risco.',
+                'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 6 -->
+        <article
+          class="movie-card"
+          data-title="O Grande Dia"
+          data-category="Comédia"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=700&q=80"
+            alt="O Grande Dia"
+          >
+
+          <div class="movie-info">
+
+            <h3>O Grande Dia</h3>
+
+            <div class="movie-meta">
+              2024 • Comédia
+            </div>
+
+            <p class="movie-description">
+              Uma sequência de acontecimentos inesperados transforma um dia comum numa aventura divertida.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'O Grande Dia',
+                '2024',
+                'Comédia',
+                'Uma sequência de acontecimentos inesperados transforma um dia comum numa aventura divertida.',
+                'https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 7 -->
+        <article
+          class="movie-card"
+          data-title="Além das Estrelas"
+          data-category="Ficção"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80"
+            alt="Além das Estrelas"
+          >
+
+          <div class="movie-info">
+
+            <h3>Além das Estrelas</h3>
+
+            <div class="movie-meta">
+              2025 • Ficção
+            </div>
+
+            <p class="movie-description">
+              Uma equipa espacial embarca numa missão para explorar regiões desconhecidas.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'Além das Estrelas',
+                '2025',
+                'Ficção científica',
+                'Uma equipa espacial embarca numa missão para explorar regiões desconhecidas.',
+                'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+
+        <!-- FILME 8 -->
+        <article
+          class="movie-card"
+          data-title="A Nova Jornada"
+          data-category="Drama"
+        >
+
+          <img
+            class="movie-image"
+            src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=80"
+            alt="A Nova Jornada"
+          >
+
+          <div class="movie-info">
+
+            <h3>A Nova Jornada</h3>
+
+            <div class="movie-meta">
+              2024 • Drama
+            </div>
+
+            <p class="movie-description">
+              Uma história sobre escolhas, família e a coragem de começar novamente.
+            </p>
+
+            <button
+              class="details-btn"
+              onclick="showMovie(
+                'A Nova Jornada',
+                '2024',
+                'Drama',
+                'Uma história sobre escolhas, família e a coragem de começar novamente.',
+                'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1000&q=80'
+              )"
+            >
+              Ver detalhes
+            </button>
+
+          </div>
+        </article>
+
+      </div>
+
+      <div class="no-results" id="noResults">
+        <h3>Nenhum filme encontrado</h3>
+        <p>Tenta pesquisar por outro título.</p>
+      </div>
+
+    </section>
+
+
+    <!-- SOBRE -->
+    <section id="sobre">
+
+      <h2 class="section-title">
+        Sobre o Kaisen Filmes
+      </h2>
+
+      <p style="color:#aaa; line-height:1.7; max-width:800px;">
+        O Kaisen Filmes é um catálogo online criado para apresentar
+        informações sobre filmes e facilitar a descoberta de novos títulos.
+        Este projeto pode ser hospedado através do GitHub Pages.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- MODAL DE DETALHES -->
+  <div class="modal" id="movieModal">
+
+    <div class="modal-box">
+
+      <button class="close" onclick="closeModal()">
+        ×
+      </button>
+
+      <img
+        class="modal-image"
+        id="modalImage"
+        src=""
+        alt=""
+      >
+
+      <div class="modal-content">
+
+        <h2 id="modalTitle"></h2>
+
+        <div class="movie-meta" id="modalMeta"></div>
+
+        <p id="modalDescription"></p>
+
+        <button class="btn btn-primary" onclick="watchMovie()">
+          Assistir
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- RODAPÉ -->
+  <footer>
+
+    <p>
+      © 2026 <strong>Kaisen Filmes</strong>
+    </p>
+
+    <p style="margin-top:8px;">
+      Catálogo de filmes e informações.
+    </p>
+
+  </footer>
+
+
+  <script>
+
+    let currentCategory = "Todos";
+
+    let currentMovie = "";
+
+
+    /* PESQUISA */
+    function searchMovies() {
+
+      const input =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+      const cards =
+        document.querySelectorAll(".movie-card");
+
+      let found = 0;
+
+      cards.forEach(card => {
+
+        const title =
+          card
+          .getAttribute("data-title")
+          .toLowerCase();
+
+        const category =
+          card
+          .getAttribute("data-category");
+
+        const matchesSearch =
+          title.includes(input);
+
+        const matchesCategory =
+          currentCategory === "Todos" ||
+          category === currentCategory;
+
+        if (matchesSearch && matchesCategory) {
+
+          card.style.display = "block";
+          found++;
+
+        } else {
+
+          card.style.display = "none";
+
+        }
+
+      });
+
+      document.getElementById("noResults").style.display =
+        found === 0 ? "block" : "none";
+
+    }
+
+
+    /* CATEGORIA */
+    function filterCategory(category, button) {
+
+      currentCategory = category;
+
+      document
+        .querySelectorAll(".category")
+        .forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+      button.classList.add("active");
+
+      searchMovies();
+
+    }
+
+
+    /* ABRIR DETALHES */
+    function showMovie(title, year, category, description, image) {
+
+      currentMovie = title;
+
+      document.getElementById("modalTitle").textContent =
+        title;
+
+      document.getElementById("modalMeta").textContent =
+        year + " • " + category;
+
+      document.getElementById("modalDescription").textContent =
+        description;
+
+      document.getElementById("modalImage").src =
+        image;
+
+      document.getElementById("movieModal").style.display =
+        "block";
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    /* FECHAR */
+    function closeModal() {
+
+      document.getElementById("movieModal").style.display =
+        "none";
+
+      document.body.style.overflow =
+        "auto";
+
+    }
+
+
+    /* BOTÃO ASSISTIR */
+    function watchMovie() {
+
+      alert(
+        "O link de reprodução deste filme deverá ser adicionado pelo administrador usando uma fonte legal e autorizada."
+      );
+
+    }
+
+
+    /* FECHAR CLICANDO FORA */
+    window.onclick = function(event) {
+
+      const modal =
+        document.getElementById("movieModal");
+
+      if (event.target === modal) {
+
+        closeModal();
+
+      }
+
+    };
+
+
+    /* TECLA ESC */
+    document.addEventListener("keydown", function(event) {
+
+      if (event.key === "Escape") {
+
+        closeModal();
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
